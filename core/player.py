@@ -19,10 +19,6 @@ class Player:
             try:
                 dot = self.ask()
                 return self.opponent_board.shot(dot)
-                if not result:
-                    break
-                elif self.log:
-                    print("Вы можете сделать еще один ход")
             except (OutOfBoundException, AlreadyMarkedDotException) as error:
                 if self.log:
                     print(error)
@@ -40,4 +36,5 @@ class AI(Player):
     """Класс игрового бота"""
 
     def ask(self) -> Dot:
+        print("AA")
         return Dot(randint(1, self.opponent_board.rows), randint(1, self.opponent_board.columns))
