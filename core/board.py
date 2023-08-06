@@ -1,7 +1,7 @@
 from dot import Dot
 from ship import Ship
 from exceptions import *
-from helper_classes import DotSymbol, Direction
+from helper_classes import DotSymbol, Direction, HitFlag
 
 
 class Board:
@@ -75,5 +75,5 @@ class Board:
             return False
         self.field[dot.x][dot.y].mark(DotSymbol.hit)
         ship.hit()
-        return True
+        return HitFlag(kill=True) if not ship.is_alive else HitFlag(hit=True) 
         

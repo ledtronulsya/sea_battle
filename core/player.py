@@ -36,5 +36,4 @@ class AI(Player):
     """Класс игрового бота"""
 
     def ask(self) -> Dot:
-        print("AA")
         return Dot(randint(1, self.opponent_board.rows), randint(1, self.opponent_board.columns))

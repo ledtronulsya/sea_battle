@@ -5,7 +5,7 @@ from ship import Ship
 from player import User, AI
 from random import choice, randint
 from exceptions import *
-from helper_classes import Direction
+from helper_classes import Direction, HitFlag
 import os
 from time import sleep
 
@@ -61,6 +61,7 @@ class Game:
         player_move = True
         while True:
             self._print()
+            print(self.opponent_board.ships)
 
             if player_move:
                 player_move = self.process_move_result(self.player.move())
@@ -81,13 +82,19 @@ class Game:
             if not res:
                 print("Вы промахнулись! Ход переходит к противнику")
                 return False
-            print("Вы попали! Ход остается у вас")
+            if res == HitFlag(kill=True):
+                print("Корабль потоплен! Ход остается у вас")
+            else:
+                print("Вы попали! Ход остается у вас")
             return True
         else:
             if not res:
                 print("Противник промахнулся! Ход переходт к вам")
                 return True
-            print("Противник попал! Ход остается у него")
+            if res == HitFlag(kill=True):
+                print("Противник потопил корабль! Ход остается у него")
+            else:
+                print("Противник попал! Ход остается у него")
             return False
     
     def check_game(self) -> bool:

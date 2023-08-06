@@ -1,26 +1,29 @@
-from typing import NamedTuple
+class NamedTuple(dict):
+    """Класс, позволяюший получать значения из словаря через точку"""
+    __getattr__ = dict.get
+    __setattr__ = dict.__setitem__
+    __delattr__ = dict.__delitem__
 
+
+class HitFlag(NamedTuple):
+    """Класс флага для попадания/убийства"""
+    def __init__(self, kill=False, hit=False):
+        self["kill"] = kill
+        self["hit"] = hit
+    
 
 class Direction(NamedTuple):
     """Именованный кортеж направления корабля"""
-    vertical: bool = False
-    horizontal: bool = False
-    # TODO: exp if vert == hor == True
+    def __init__(self, vertical=False, horizontal=False):
+        self["vertical"] = vertical
+        self["horizontal"] = horizontal
 
 
-class DotSymbol(NamedTuple):
-    """Класс символа точки на поле"""
-    simple: str = "□"
-    hit: str = "⊠"
-    miss: str = "T"
-    ship: str = "■"
-    around: str = "▦"
+DotSymbol = NamedTuple({
+    "simple": "□",
+    "hit": "⊠",
+    "miss": "T",
+    "ship": "■",
+    "around":"▦",
+})
 
-SYMBOLS_DICT = {
-    DotSymbol.simple: "□",
-    DotSymbol.hit: "⊠",
-    DotSymbol.miss: "T",
-    DotSymbol.ship: "■",
-    DotSymbol.around: "▦",
-
-}

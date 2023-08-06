@@ -1,4 +1,4 @@
-from helper_classes import DotSymbol, SYMBOLS_DICT
+from helper_classes import DotSymbol
 
 
 class Dot:
@@ -28,8 +28,8 @@ class Dot:
     
     def __str__(self):
         if self.is_hidden and self.symbol in (DotSymbol.ship, DotSymbol.around):
-            return SYMBOLS_DICT[DotSymbol.simple]
-        return SYMBOLS_DICT[self.symbol]
+            return DotSymbol.simple
+        return self.symbol
     
     def mark(self, symb):
         """Устанавливает флаг, что по точке был произведен выстрел"""

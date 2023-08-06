@@ -56,12 +56,9 @@ class Ship:
     def hit(self):
         """Производит попадание по точку корабля"""
         self.hp -= 1
-        if self.hp == 0:
-            return True
-        return False 
     
     def __str__(self) -> str:
-        if self.dir == Direction.horizontal:
+        if self.dir == Direction(vertical=True):
             return f"Ship({len(self)}, {repr(self.head)}, vertical=True, {self.hp})"
         return f"Ship({len(self)}, {repr(self.head)}, horizontal=True, {self.hp})"
     
