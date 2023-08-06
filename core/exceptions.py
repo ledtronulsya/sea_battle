@@ -4,7 +4,7 @@ from dot import Dot
 class OutOfBoundException(Exception):
     """Исключение, возникающее при попытке поставть точку вне поля"""
     def __init__(self, dot: Dot):
-        msg = f"Точка с координатами ({dot.x}, {dot.y}) выходит за преедлы поля"
+        msg = f"Точка с координатами ({dot.x}, {dot.y}) выходит за пределы поля"
         super().__init__(msg)
 
 

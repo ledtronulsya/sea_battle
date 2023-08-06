@@ -22,13 +22,18 @@ class Player:
             except (OutOfBoundException, AlreadyMarkedDotException) as error:
                 if self.log:
                     print(error)
+            except ValueError as error:
+                if self.log:
+                    print("Координаты введены некорректно!")
 
 
 class User(Player):
     """Класс пользователя"""
 
     def ask(self) -> Dot:
-        x, y = map(int, input("Введите строку и столбец ячейки через пробел: ").split())
+        x, y = map(int, input(
+            "Введите строку и столбец ячейки, которую вы хотите открыть, через пробел: "
+        ).split())
         return Dot(x, y)
 
 

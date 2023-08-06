@@ -28,7 +28,7 @@ class Game:
 
 
         self.player = User(self.player_board, self.opponent_board)
-        self.ai = AI(self.opponent_board, self.player_board)
+        self.ai = AI(self.opponent_board, self.player_board, log=False)
 
     def random_board(self, is_hidden: bool = False) -> Board | None:
         """Генерирует случайное поле"""
@@ -55,14 +55,18 @@ class Game:
     def greet(self):
         """Приветствие игрока"""
         print("""Привет! Сыграем в морской бой?""")
+        ans = input("Да/Нет: ")
+        while ans.lower() not in ("да", "нет"):
+            print("Не понял твоего ответа. Хочешь сыграть? Напиши 'Да' или 'Нет'")
+            ans = input("Да/Нет: ")
+        if ans.lower() == "нет":
+            self._exit()
     
     def loop(self):
         """Игровой цикл"""
         player_move = True
         while True:
             self._print()
-            print(self.opponent_board.ships)
-
             if player_move:
                 player_move = self.process_move_result(self.player.move())
             else:
