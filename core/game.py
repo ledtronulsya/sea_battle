@@ -16,25 +16,35 @@ RULES = [3, 2, 2, 1, 1, 1, 1]
 class Game:
     """Класс игры"""
     def __init__(self) -> None:
-        self.player_board = self.random_board()
-        self.opponent_board = self.random_board(is_hidden=True)
+        player_board = self.random_board()
+        while player_board is None:
+            player_board = self.random_board()
+        self.player_board = player_board
+
+        ai_board = self.random_board(is_hidden=False)
+        while ai_board is None:
+            ai_board = self.random_board(is_hidden=False)
+        self.opponent_board = ai_board
+
+
         self.player = User(self.player_board, self.opponent_board)
         self.ai = AI(self.opponent_board, self.player_board)
 
-    def random_board(self, is_hidden: bool = False) -> Board:
+    def random_board(self, is_hidden: bool = False) -> Board | None:
         """Генерирует случайное поле"""
         board = Board(is_hidden=is_hidden)
         for rule in RULES:
-            while True:
+            for i in range(1000):
                 try:
                     dr = choice([Direction(vertical=True), Direction(horizontal=True)])
-                    dr_flag = dr == Direction.vertical
-                    x, y = randint(1, board.rows - rule * dr_flag), randint(1, board.columns - (1 - dr_flag))
+                    x, y = randint(1, board.rows), randint(1, board.columns)
                     head = Dot(x, y)
                     board.add_ship(Ship(rule, head, dr))
                     break
-                except ShipOutOfBoudsException:
+                except (ShipOutOfBoudsException, ShipCollideException):
                     continue
+            if i == 999:
+                return None
         return board
 
     def start(self):

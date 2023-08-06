@@ -20,3 +20,10 @@ class ShipOutOfBoudsException(Exception):
     def __init__(self):
         msg = "Корабль частично или полностью выходит за границы поля"
         super().__init__(msg)
+
+
+class ShipCollideException(Exception):
+    """Исключение, возникающее, когда корабли на поле пересекаются или когда они расположены вплотную"""
+    def __init__(self):
+        msg = "Корабль пересекается с другим кораблем или стоит вплотную к нему"
+        super().__init__(msg)

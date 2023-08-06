@@ -10,17 +10,17 @@ class Direction(NamedTuple):
 
 class DotSymbol(NamedTuple):
     """Класс символа точки на поле"""
-    simple: str = "О"
-    hit: str = "X"
+    simple: str = "□"
+    hit: str = "⊠"
     miss: str = "T"
     ship: str = "■"
-    around: str = "▒"
+    around: str = "▦"
 
 SYMBOLS_DICT = {
-    DotSymbol.simple: "О",
-    DotSymbol.hit: "X",
+    DotSymbol.simple: "□",
+    DotSymbol.hit: "⊠",
     DotSymbol.miss: "T",
     DotSymbol.ship: "■",
-    DotSymbol.around: "▒",
+    DotSymbol.around: "▦",
 
 }
