@@ -24,12 +24,12 @@ class Dot:
     
     def __repr__(self):
         """Вывод точки в консоль"""
+        return f"Dot({self.x}, {self.y})"
+    
+    def __str__(self):
         if self.is_hidden and self.symbol in (DotSymbol.ship, DotSymbol.around):
             return SYMBOLS_DICT[DotSymbol.simple]
         return SYMBOLS_DICT[self.symbol]
-    
-    def __str__(self):
-        return f"Dot({self.x}, {self.y})"
     
     def mark(self, symb):
         """Устанавливает флаг, что по точке был произведен выстрел"""

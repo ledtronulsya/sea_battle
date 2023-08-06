@@ -8,16 +8,17 @@ class Board:
     """Класс игрового поля"""
     def __init__(self, is_hidden: bool = False, rows: int = 6, columns: int = 6) -> None:
         self.is_hidden = is_hidden
-        self.rows, self.columns =rows, columns
-        self.field = [[Dot(i + 1, j + 1) for j in range(columns + 1)] for i in range(rows + 1)]
+        self.rows, self.columns = rows + 1, columns + 1
+        self.field = [[Dot(i, j) for j in range(columns + 1)] for i in range(rows + 1)]
+        self.add_headers()
         self.ships = []
-    
 
     def add_headers(self):
-        """Добавляет числа на первой строке и первом столбце"""
-        self.field[0] = [" "] + list(map(str, range(1, self.columns + 1)))
-        
-    
+        """Добавляет чисел на первой строке и первом столбце"""
+        self.field[0] = [" "] + list(range(1, self.columns))
+        for row in range(1, self.rows):
+            self.field[row][0] = row
+
     def add_ship(self, ship: Ship):
         """Добавляет корабль на поле"""
         if self.out(ship.head) or self.out(ship.dots()[-1]):
@@ -25,11 +26,10 @@ class Board:
         self.ships.append(ship)
         self.contour(ship)
     
-
     def set_symbol(self, dot, symb):
         """Устаанвливает символ на поле"""
         if not self.out(dot):
-            self.field[dot.x - 1][dot.y - 1].mark(symb)
+            self.field[dot.x][dot.y].mark(symb)
     
     @staticmethod
     def get_neightbour_dots(dot: Dot, ship: Ship) -> tuple[Dot, Dot]:
@@ -57,7 +57,6 @@ class Board:
         self.set_symbol(doth1, DotSymbol.around)
         self.set_symbol(doth2, DotSymbol.around)
 
-
     @property
     def ships_alive(self):
         """Возвращает число живых кораблей"""
@@ -65,22 +64,7 @@ class Board:
 
     def __repr__(self):
         """Вывод доски в консоль"""
-        row_pattern = "{} | {} | {} | {} | {} | {} | {} |"
-        first_row = row_pattern.format(" ", *range(1, self.columns + 1))
-        rows = [first_row]
-        for x, i in enumerate(self.field, 1):
-            symbols = []
-            for dot in i:
-                if not self.is_hidden:
-                    symbols.append(dot.symbol)
-                elif dot.symbol in (DotSymbol.ship, DotSymbol.around):
-                    symbols.append(DotSymbol.simple)
-                else:
-                    symbols.append(dot.symbol)
-            symbols = [SYMBOLS_DICT[s] for s in symbols]
-            row = row_pattern.format(x, *symbols)
-            rows.append(row)
-        return '\n'.join(rows)
+        return '\n'.join([" | ".join(map(str, row)) + " |" for row in self.field])
     
     def out(self, dot: Dot) -> bool:
         """Возвращает флаг, вышла ли точка за границы поля"""
@@ -97,22 +81,23 @@ class Board:
         """Делает выстрел"""
         if self.out(dot):
             raise OutOfBoundException(dot)
-        if self.field[dot.x - 1][dot.y - 1].used:
+        if self.field[dot.x][dot.y].used:
             raise AlreadyMarkedDotException(dot)
         ship = self.find_ship_with_dot(dot)
         if ship is None:
-            self.field[dot.x - 1][dot.y - 1].mark(DotSymbol.miss)
+            self.field[dot.x][dot.y].mark(DotSymbol.miss)
             return False
-        self.field[dot.x - 1][dot.y - 1].mark(DotSymbol.hit)
+        self.field[dot.x][dot.y].mark(DotSymbol.hit)
         return True
 
 
-# b = Board()
-# s = Ship(3, Dot(2, 2), Direction(vertical=True))
-# b.add_ship(s)
-# b.shot(Dot(2, 2))
-# b.shot(Dot(2, 3))
-# print(b)
+b = Board()
+s = Ship(3, Dot(2, 2), Direction(vertical=True))
+b.add_ship(s)
+#print(b)
+b.shot(Dot(2, 2))
+b.shot(Dot(2, 3))
+print(b)
         
 
         
