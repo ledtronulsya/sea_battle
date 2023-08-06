@@ -34,13 +34,11 @@ class Ship:
         if self.hp == 0:
             return True
         return False 
-
-
-
-
-if __name__ == "__main__":
-    s = Ship(4, Dot(1, 1), Direction(horizontal=True))
-    print(s.is_alive)
-    print(len(s))
-    print(s.dots())
-
+    
+    def __str__(self) -> str:
+        if self.dir == Direction.vertical:
+            return f"Ship({len(self)}, {repr(self.head)}, vertical=True, {self.hp})"
+        return f"Ship({len(self)}, {repr(self.head)}, horizontal=Truem, {self.hp})"
+    
+    def __repr__(self):
+        return str(self)

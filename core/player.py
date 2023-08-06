@@ -18,7 +18,7 @@ class Player:
         while True:
             try:
                 dot = self.ask()
-                result = self.opponent_board.shot(dot)
+                return self.opponent_board.shot(dot)
                 if not result:
                     break
                 elif self.log:
@@ -34,7 +34,6 @@ class User(Player):
     def ask(self) -> Dot:
         x, y = map(int, input("Введите строку и столбец ячейки через пробел: ").split())
         return Dot(x, y)
-        pass
 
 
 class AI(Player):

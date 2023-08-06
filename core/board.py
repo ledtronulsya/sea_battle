@@ -54,7 +54,7 @@ class Board:
         doth = self.get_neightbour_dots(dots[0], ship.dir, ax=1)[0]
         dott = self.get_neightbour_dots(dots[-1], ship.dir, ax=1)[1]
         dots_around.extend([doth, dott, *self.get_neightbour_dots(doth, ship.dir), *self.get_neightbour_dots(dott, ship.dir)])
-        [self.set_symbol(d, DotSymbol.around) for d in dots_around]
+        #[self.set_symbol(d, DotSymbol.around) for d in dots_around]
 
     @property
     def ships_alive(self) -> int:
@@ -87,17 +87,6 @@ class Board:
             self.field[dot.x][dot.y].mark(DotSymbol.miss)
             return False
         self.field[dot.x][dot.y].mark(DotSymbol.hit)
+        ship.hit()
         return True
-
-
-b = Board()
-s = Ship(3, Dot(2, 2), Direction(vertical=True))
-b.add_ship(s)
-#print(b)
-b.shot(Dot(2, 2))
-b.shot(Dot(3, 2))
-b.shot(Dot(3, 2))
-print(b)
-        
-
         
