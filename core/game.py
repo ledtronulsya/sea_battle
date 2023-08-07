@@ -20,11 +20,10 @@ class Game:
             player_board = self.random_board()
         self.player_board = player_board
 
-        ai_board = self.random_board(is_hidden=False)
+        ai_board = self.random_board(is_hidden=True)
         while ai_board is None:
-            ai_board = self.random_board(is_hidden=False)
+            ai_board = self.random_board(is_hidden=True)
         self.opponent_board = ai_board
-
 
         self.player = User(self.player_board, self.opponent_board)
         self.ai = AI(self.opponent_board, self.player_board, log=False)
@@ -53,13 +52,10 @@ class Game:
 
     def greet(self):
         """Приветствие игрока"""
-        print("""Привет! Сыграем в морской бой?""")
-        ans = input("Да/Нет: ")
-        while ans.lower() not in ("да", "нет"):
-            print("Не понял твоего ответа. Хочешь сыграть? Напиши 'Да' или 'Нет'")
-            ans = input("Да/Нет: ")
-        if ans.lower() == "нет":
-            self._exit()
+        print("""Привет! Это игра 'Морской бой'. 
+Поля игрока и противника создаются случайным образом.
+Чтобы сделать ход, нужно ввести координаты точки, по которой вы хотите произвести выстрел.
+Координаты точки задаются двумя числами, запписанными через пробем - номером строки и номером столбца.""")
     
     def loop(self):
         """Игровой цикл"""
@@ -69,8 +65,8 @@ class Game:
             if player_move:
                 player_move = self.process_move_result(self.player.move())
             else:
-                player_move = self.process_move_result(self.ai.move(), False)
                 sleep(2)
+                player_move = self.process_move_result(self.ai.move(), False)
             
             check_result = self.check_game()
             if check_result:
@@ -92,7 +88,7 @@ class Game:
             return True
         else:
             if not res:
-                print("Противник промахнулся! Ход переходт к вам")
+                print("Противник промахнулся! Ход переходит к вам")
                 return True
             if res == HitFlag(kill=True):
                 print("Противник потопил корабль! Ход остается у него")
@@ -103,10 +99,10 @@ class Game:
     def check_game(self) -> bool:
         """Проверяет, выиграл ли кто-то из игроков после хода"""
         if self.player_board.ships_alive == 0:
-            print("Противник выиграл!")
+            print("--- Противник выиграл! ---")
             return True
         if self.opponent_board.ships_alive == 0:
-            print("Вы выиграли!")
+            print("--- Вы выиграли! ---")
             return True
         return False
 
@@ -121,8 +117,3 @@ class Game:
         """Выход из игры"""
         print("Приятно было провести время!")
         sys.exit(0)
-
-
-g = Game()
-
-g.start()

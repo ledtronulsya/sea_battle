@@ -22,7 +22,8 @@ class Player:
         """Устанавливат поле противника"""
         self.opponent_board = opponent_board
     
-    def move(self):
+    def move(self) -> bool:
+        """Ход игрока. Если игрок ввел неверные данные, ход начинается заново"""
         while True:
             try:
                 dot = self.ask()
@@ -40,7 +41,7 @@ class User(Player):
 
     def ask(self) -> Dot:
         x, y = map(int, input(
-            "Введите строку и столбец ячейки, которую вы хотите открыть, через пробел: "
+            "Введите координаты ячейки через пробел: "
         ).split())
         return Dot(x, y)
 
