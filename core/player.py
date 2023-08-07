@@ -1,18 +1,26 @@
-from board import Board
+from core.board import Board
 from random import randint
-from dot import Dot
-from exceptions import *
+from core.dot import Dot
+from core.exceptions import *
 
 
 class Player:
     """Класс игрока"""
-    def __init__(self, player_board: Board, opponent_board: Board, log: bool = True):
+    def __init__(self, player_board: Board | None = None, opponent_board: Board | None = None, log: bool = True):
         self.player_board = player_board
         self.opponent_board = opponent_board
         self.log = log
 
     def ask(self) -> Dot:
         """Спрашивет игрока, в какую клеетку произвести выстрел"""
+    
+    def set_player_board(self, player_board: Board):
+        """Устанавливает поле игрока"""
+        self.player_board = player_board
+    
+    def set_opponent_board(self, opponent_board: Board):
+        """Устанавливат поле противника"""
+        self.opponent_board = opponent_board
     
     def move(self):
         while True:

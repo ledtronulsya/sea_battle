@@ -1,5 +1,5 @@
-from dot import Dot
-from helper_classes import Direction
+from core.dot import Dot
+from core.helper_classes import Direction
 
 
 class Ship:

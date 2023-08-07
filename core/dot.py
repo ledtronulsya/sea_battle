@@ -1,4 +1,4 @@
-from helper_classes import DotSymbol
+from core.helper_classes import DotSymbol
 
 
 class Dot:

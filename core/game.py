@@ -1,12 +1,11 @@
 import sys
-from board import Board
-from dot import Dot
-from ship import Ship
-from player import User, AI
+from core.board import Board
+from core.dot import Dot
+from core.ship import Ship
+from core.player import User, AI
 from random import choice, randint
-from exceptions import *
-from helper_classes import Direction, HitFlag
-import os
+from core.exceptions import *
+from core.helper_classes import Direction, HitFlag
 from time import sleep
 
 # Правила игры: 1 трехпалубный, 2 двухпалубных и 4 однопалубных корабля
@@ -124,6 +123,6 @@ class Game:
         sys.exit(0)
 
 
-if __name__ == "__main__":
-    g = Game()
-    g.start()
+g = Game()
+
+g.start()

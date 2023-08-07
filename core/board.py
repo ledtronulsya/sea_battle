@@ -1,7 +1,7 @@
-from dot import Dot
-from ship import Ship
-from exceptions import *
-from helper_classes import DotSymbol, Direction, HitFlag
+from core.dot import Dot
+from core.ship import Ship
+from core.exceptions import *
+from core.helper_classes import DotSymbol, Direction, HitFlag
 
 
 class Board:

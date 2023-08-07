@@ -1,4 +1,4 @@
-from dot import Dot
+from core.dot import Dot
 
 
 class OutOfBoundException(Exception):
