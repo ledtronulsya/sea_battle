@@ -20,10 +20,10 @@ class Direction(NamedTuple):
 
 
 DotSymbol = NamedTuple({
-    "simple": "□",
-    "hit": "⊠",
+    "simple": "О",
+    "hit": "X",
     "miss": "T",
     "ship": "■",
-    "around":"▦",
+    "around":"#",
 })
 
